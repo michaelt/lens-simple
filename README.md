@@ -11,7 +11,7 @@ Note the separate [`lens-family-th`](http://hackage.haskell.org/package/lens-fam
 
 -----
 
-The pong exampe from `lens/examples` is included here as an illustration of the strenth of `lens-families` + `lens-families-th`. Apart from the change of imports we are missing only the `(<~)` operator (just as well if we are planning on using pipes), so the only substantive change is to replace 
+The pong example from `lens/examples` is included here as an illustration of the strenth of `lens-families` + `lens-families-th`. Apart from the change of imports we are missing only the `(<~)` operator (just as well if we are planning on using pipes), so the only substantive change is to replace 
 
     reset = do
       ballPos .= (0, 0)

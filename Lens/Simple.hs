@@ -5,7 +5,7 @@ module Lens.Simple (
   module Lens.Family2.State.Strict,
   (??)
   ) where
-import Lens.Family2
+import Lens.Family2 hiding (Fold)
 import Lens.Family2.Unchecked
 import Lens.Family2.Stock
 import Lens.Family2.State.Strict

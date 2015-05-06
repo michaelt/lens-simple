@@ -1,6 +1,6 @@
 name:                lens-family-simple
 version:             0.1.0.0
-synopsis:            combinators from lens family
+synopsis:            simplified import of lens family
 
 description:         This module, @Lens.Simple@, just re-exports the main modules from Russell O\'Connor's 
                      <http://hackage.haskell.org/package/lens-family-core lens-family-core> 

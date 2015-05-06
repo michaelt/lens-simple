@@ -1,16 +1,34 @@
 name:                lens-family-simple
 version:             0.1.0.0
-synopsis:            This module re-exports the main modules from Russell O'Connor's incredibly simple 
-                     <http://hackage.haskell.org/package/lens-family-core lens-family-core> package, 
-                     the original <http://r6.ca/blog/20120623T104901Z.html \'van Laarhoven lens\'> library. @Lens.Simple@ also re-exports @makeLenses@ and 
-                     other TH incantations from Dan Burton's associated <http://hackage.haskell.org/package/lens-family-th lens-family-th>. 
+synopsis:            combinators from lens family
+
+description:         This module, @Lens.Simple@, just re-exports the main modules from Russell O\'Connor's 
+                     <http://hackage.haskell.org/package/lens-family-core lens-family-core> 
+                     package, the original <http://r6.ca/blog/20120623T104901Z.html van Laarhoven lens> library. 
+                     @Lens.Simple@ also re-exports @makeLenses@ and 
+                     other TH incantations from Dan Burton's associated 
+                     <http://hackage.haskell.org/package/lens-family-th lens-family-th>. 
                      .
                      The idea is just to make a lens-family equivalent of @import Control.Lens@, namely @import Lens.Simple@ 
-                     -- it's even one character shorter! As an illustration, note that 
-                     the wonderful <https://github.com/michaelt/lens-family-simple/blob/master/examples/Pong.hs pong example> from the @lens@ 
-                     library requires only that change of imports. 
+                     /-/- it's even one character shorter! As an illustration, note that 
+                     the <https://github.com/michaelt/lens-family-simple/blob/master/examples/Pong.hs pong example> 
+                     from the @lens@ library requires only this abbreviating change of imports. 
                      .
-                     It should be kept in mind that the @zoom@ exported is specialized to @Control.Monad.Trans.State.Strict@ 
+                     Similarly, when need arises for the unfathomably more 
+                     sophisticated material in @Control.Lens@, a
+                     change of imports will tend be all that is necessary 
+                     to begin using them. 
+                     .
+                     It should be kept in mind that the @zoom@ exported here does
+                     not use @MonadState@ from @mtl@ but is 
+                     specialized to @Control.Monad.Trans.State.Strict@  Many of
+                     the other lenses and combinators are a bit more 
+                     specialized than their @Control.Lens@ equivalents: 
+                     for example, _1 and _2 are here 
+                     familiarly specialized to act just on real Haskell
+                     pairs; with the loss of abstraction we also of course
+                     lose the concomitant opaque error messages 
+                     about @Field1 s t a b@ etc.
                      
 -- description:         
 homepage:            https://github.com/michaelt/lens-family-simple

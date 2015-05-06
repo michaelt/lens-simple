@@ -1,14 +1,77 @@
 {-#LANGUAGE CPP #-}
 module Lens.Simple (
-  module Lens.Family,
-  module Lens.Family.Unchecked,
-  module Lens.Family.Stock,
-  module Lens.Family.State.Strict,
-  module Lens.Family.TH,
-  module Lens.Simple
-  #if MIN_VERSION_base(4,8,0)
-  , module Data.Function
-  #endif
+    -- * Stock Lenses
+    _1, _2
+    , chosen
+    , ix
+    , at, intAt
+    , contains, intContains
+    
+    -- * Stock Traversals
+    , both
+    , _Left, _Right
+    , _Just, _Nothing
+    , ignored
+    
+    -- * Basic lens combinators
+    , to, view, (^.)
+    , folding, views, (^..), (^?)
+    , toListOf, allOf, anyOf, firstOf, lastOf, sumOf, productOf
+    , lengthOf, nullOf
+    , backwards
+    , over, (%~), set, (.~)
+    , (&)
+    
+    -- * Pseudo-imperatives
+    , (+~), (*~), (-~), (//~), (&&~), (||~), (<>~)
+    
+    -- * State related combinators
+    , zoom
+    , use, uses
+    , (%=)
+    , assign, (.=)
+    , (%%=)
+    , (<~)
+    
+    -- * Compound state assignments
+    , (+=), (-=), (*=)
+    , (//=)
+    , (&&=), (||=)
+    , (<>=)
+    
+    -- * Stock Semantic Editor Combinators
+    , mapped
+    
+    -- * Lens formers
+    , lens
+    , iso
+    , setting
+    
+    -- * Combining Combinators
+    , choosing
+    , alongside
+    , beside
+
+    -- * TH incantations
+    , makeLenses
+    , makeTraversals
+    , makeLensesBy
+    , makeLensesFor
+    -- * Types
+    
+    , LensLike, LensLike'
+    , FoldLike, FoldLike'
+    , ASetter, ASetter'
+    , Phantom
+    , Constant, Identity
+    , AlongsideLeft, AlongsideRight
+    , Zooming
+    
+    
+    -- * Re-exports
+    , Applicative, Foldable, Monoid
+    , Backwards, All, Any, First, Last, Sum, Product
+    , StateT, Writer
   ) where
 import Lens.Family.Unchecked
 import Lens.Family.Stock

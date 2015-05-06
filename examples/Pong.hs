@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell, Rank2Types, NoMonomorphismRestriction #-}
+{-# LANGUAGE TemplateHaskell #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Main
@@ -14,8 +14,7 @@ module Main where
 
 import Control.Applicative ((<$>), (<*>))
 import Lens.Simple
-import Lens.Family2.TH
-import Control.Monad.State (State, execState, get)
+import Control.Monad.State.Strict (State, execState, get)
 import Control.Monad (when)
 
 import Data.Set (Set, member, empty, insert, delete)
@@ -55,7 +54,7 @@ data Pong = Pong
   }
 
 -- Some nice lenses to go with it
-mkLenses ''Pong
+makeLenses ''Pong
 
 -- Renamed tuple lenses for enhanced clarity with points/vectors
 _x = _1

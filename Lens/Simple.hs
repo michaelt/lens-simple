@@ -1,14 +1,22 @@
+{-#LANGUAGE CPP #-}
 module Lens.Simple (
-  module Lens.Family2,
-  module Lens.Family2.Unchecked,
-  module Lens.Family2.Stock,
-  module Lens.Family2.State.Strict,
-  (??)
+  module Lens.Family,
+  module Lens.Family.Unchecked,
+  module Lens.Family.Stock,
+  module Lens.Family.State.Strict,
+  module Lens.Family.TH,
+  module Lens.Simple
   ) where
-import Lens.Family2 hiding (Fold)
-import Lens.Family2.Unchecked
-import Lens.Family2.Stock
-import Lens.Family2.State.Strict
+import Lens.Family.Unchecked
+import Lens.Family.Stock
+import Lens.Family.State.Strict
+import Lens.Family.TH (makeLenses, makeTraversals, makeLensesBy, makeLensesFor)
+#if MIN_VERSION_base(4,8,0)
+import Data.Function ((&))
+import Lens.Family hiding (Fold,(&))
+#else
+import Lens.Family hiding (Fold)
+#endif
 
 infixl 1 ??
 -- | Generalized infix flip, replicating @Control.Lens.Lens.??@

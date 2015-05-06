@@ -6,6 +6,9 @@ module Lens.Simple (
   module Lens.Family.State.Strict,
   module Lens.Family.TH,
   module Lens.Simple
+  #if MIN_VERSION_base(4,8,0)
+  , module Data.Function
+  #endif
   ) where
 import Lens.Family.Unchecked
 import Lens.Family.Stock

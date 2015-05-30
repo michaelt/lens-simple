@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell, RankNTypes, ScopedTypeVariables #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Main
@@ -138,6 +138,8 @@ updatePaddles time = do
 clamp :: Float -> Float -> Float
 clamp pad = max (pad - 1) . min (1 - pad)
 
+type Lens_ a b = forall f . Functor f =>  (b -> f b) -> a -> f a
+
 -- Check for collisions and/or scores
 checkBounds :: State Pong ()
 checkBounds = do
@@ -148,15 +150,15 @@ checkBounds = do
   when (abs y >= edge) $
     ballSpeed._y %= negate
 
-  -- Check for collisions with paddles
-  let check paddle other
+    -- Check for collisions with paddles
+  let check paddle (other :: Lens_ (Int,Int) Int)
         | y >= p^.paddle - paddleHeight/2 && y <= p^.paddle + paddleHeight/2 = do
-            ballSpeed._x   %= negate
+            ballSpeed._x   %= negate 
             ballSpeed._y   += 3*(y - p^.paddle) -- add english
             ballSpeed.both *= speedIncrease
         | otherwise = do
-          score.other += 1
-          reset
+           score.other += 1
+           reset
 
   when (x >=  edge) $ check paddle2 _1
   when (x <= -edge) $ check paddle1 _2

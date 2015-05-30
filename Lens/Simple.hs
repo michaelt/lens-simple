@@ -69,14 +69,15 @@ module Lens.Simple (
     
     
     -- * Re-exports
-    , Applicative, Foldable, Monoid
+    , Applicative, Foldable, Monoid(..),(<>)
     , Backwards, All, Any, First, Last, Sum, Product
     , StateT, Writer
   ) where
-import Lens.Family.Unchecked
-import Lens.Family.Stock
-import Lens.Family.State.Strict
-import Lens.Family.TH (makeLenses, makeTraversals, makeLensesBy, makeLensesFor)
+import Lens.Family2.Unchecked
+import Lens.Family2.Stock
+import Lens.Family2.State.Strict
+import Lens.Family2.TH (makeLenses, makeTraversals, makeLensesBy, makeLensesFor)
+import Data.Monoid
 #if MIN_VERSION_base(4,8,0)
 import Data.Function ((&))
 import Lens.Family hiding (Fold,(&))

@@ -30,18 +30,22 @@ description:         This module, @Lens.Simple@, just re-exports the main module
                      lose the concomitant opaque error messages 
                      about @Field1 s t a b@ etc.
                      
--- description:         
-homepage:            https://github.com/michaelt/lens-family-simple
+-- description:  
+
+homepage:            https://github.com/michaelt/lens-simple
 license:             BSD3
 license-file:        LICENSE
 author:              michaelt
 maintainer:          what_is_it_to_do_anything@yahoo.com
--- copyright:           
--- category:            
+copyright:           Copyright (C) 2012,2013,2014 Russell O'Connor, 2014 michaelt
+category:            Lenses     
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
-
+source-repository head
+  type:     git
+  location: https://github.com/michaelt/lens-simple    
+    
 library
   exposed-modules:     Lens.Simple
   build-depends:       base

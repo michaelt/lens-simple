@@ -1,6 +1,6 @@
 name:                lens-simple
 version:             0.1.0.0
-synopsis:            simplified import of essential lens combinators
+synopsis:            simplified import of elementary lens-family combinators
 
 description:         This module, @Lens.Simple@, just re-exports the main modules from Russell O\'Connor's 
                      <http://hackage.haskell.org/package/lens-family-core lens-family-core> 
@@ -16,7 +16,7 @@ description:         This module, @Lens.Simple@, just re-exports the main module
                      .
                      Similarly, when need arises for the unfathomably more 
                      sophisticated material in @Control.Lens@, a
-                     change of imports will tend be all that is necessary 
+                     change of imports will often be all that is necessary 
                      to begin using them. 
                      .
                      It should be kept in mind that the @zoom@ exported here does
@@ -29,8 +29,6 @@ description:         This module, @Lens.Simple@, just re-exports the main module
                      pairs; with the loss of abstraction we also of course
                      lose the concomitant opaque error messages 
                      about @Field1 s t a b@ etc.
-                     
--- description:  
 
 homepage:            https://github.com/michaelt/lens-simple
 license:             BSD3

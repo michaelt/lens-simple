@@ -67,11 +67,8 @@ module Lens.Simple (
     , AlongsideLeft, AlongsideRight
     , Zooming
     
-    
     -- * Re-exports
-    , Applicative, Foldable, Monoid(..),(<>)
-    , Backwards, All, Any, First, Last, Sum, Product
-    , StateT, Writer
+    , Monoid(..),(<>)
   ) where
 import Lens.Family2.Unchecked
 import Lens.Family2.Stock

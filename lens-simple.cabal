@@ -1,32 +1,44 @@
 name:                lens-simple
-version:             0.1.0.0
+version:             0.1.0.2
 synopsis:            simplified import of elementary lens-family combinators
 
-description:         This module, @Lens.Simple@, just re-exports the main modules from Russell O\'Connor's 
-                     <http://hackage.haskell.org/package/lens-family-core lens-family-core> 
+description:         This module, <http://hackage.haskell.org/package/lens-simple/docs/Lens-Simple.html Lens.Simple>, just re-exports the main modules from Russell O\'Connor's 
+                     <http://hackage.haskell.org/package/lens-family lens-family> 
                      package, the original <http://r6.ca/blog/20120623T104901Z.html van Laarhoven lens> library. 
                      @Lens.Simple@ also re-exports @makeLenses@ and 
                      other TH incantations from Dan Burton's associated 
                      <http://hackage.haskell.org/package/lens-family-th lens-family-th>. 
                      .
-                     The idea is just to make a lens-family equivalent of @import Control.Lens@, namely @import Lens.Simple@ 
-                     /-/- it's even one character shorter! As an illustration, note that 
-                     the <https://github.com/michaelt/lens-family-simple/blob/master/examples/Pong.hs pong example> 
+                     The idea is just to make a sort of low-power, minimal-dependency @lens-family@ equivalent of 
+                     .
+                     > import Control.Lens
+                     .
+                     namely:
+                     .
+                     > import Lens.Simple
+                     .
+                     Check it out, it's even one character shorter! 
+                     .
+                     As an illustration, note that the 
+                     <https://github.com/michaelt/lens-family-simple/blob/master/examples/Pong.hs pong example> 
                      from the @lens@ library requires only this abbreviating change of imports. 
+                     If you care to make that program more complicated, you might at some point need 
+                     the unfathomably more sophisticated material in @Control.Lens@. 
+                     Because @lens-family@ accords as 
+                     far as possible, with @Control.Lens@, within its more limited sphere,
+                     a change of imports will often be all that is necessary to begin using them.
                      .
-                     Similarly, when need arises for the unfathomably more 
-                     sophisticated material in @Control.Lens@, a
-                     change of imports will often be all that is necessary 
-                     to begin using them. 
+                     It is rarely necessary to exceed the materials exported here when using
+                     the lenses and quasi-lenses exported by e.g. 
+                     <http://hackage.haskell.org/package/pipes-bytestring pipes-bytestring> 
+                     or <http://hackage.haskell.org/package/pipes-group pipes-group>. It is for such
+                     use-cases that this module is principally intended.
                      .
-                     It should be kept in mind that the @zoom@ exported here does
-                     not use @MonadState@ from @mtl@ but is 
-                     specialized to @Control.Monad.Trans.State.Strict@  Many of
-                     the other lenses and combinators are a bit more 
+                     Note that many of the other lenses and combinators are a bit more 
                      specialized than their @Control.Lens@ equivalents: 
                      for example, _1 and _2 are here 
                      familiarly specialized to act just on real Haskell
-                     pairs; with the loss of abstraction we also of course
+                     pairs. With the loss of abstraction we also of course
                      lose the concomitant opaque error messages 
                      about @Field1 s t a b@ etc.
 

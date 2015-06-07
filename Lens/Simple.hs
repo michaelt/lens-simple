@@ -21,6 +21,7 @@ module Lens.Simple (
     , backwards
     , over, (%~), set, (.~)
     , (&)
+    , (??)
     
     -- * Pseudo-imperatives
     , (+~), (*~), (-~), (//~), (&&~), (||~), (<>~)

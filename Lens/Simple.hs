@@ -22,7 +22,8 @@ module Lens.Simple (
     , over, (%~), set, (.~)
     , (&)
     , (??)
-    
+    , (?~)
+
     -- * Pseudo-imperatives
     , (+~), (*~), (-~), (//~), (&&~), (||~), (<>~)
     
@@ -92,3 +93,6 @@ infixl 1 ??
 (??) :: Functor f => f (a -> b) -> a -> f b
 ff ?? a = fmap ($ a) ff
 {-# INLINE (??) #-}
+
+(?~) :: ASetter a a' b (Maybe b') -> b' -> a -> a'
+l ?~ b = set l (Just b)

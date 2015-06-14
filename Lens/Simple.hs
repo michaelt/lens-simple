@@ -1,30 +1,30 @@
 {-#LANGUAGE CPP, RankNTypes #-}
 module Lens.Simple (
-    -- * Fundamental lens combinators (@view\/(^.)@,  @set\/(.~)@, @over\/(%~)@)
+    
+    -- * Fundamental lens combinators: @view@, @set@ and @over@ \- also known as @(^.)@, @(.~)@ and @(%~)@
     view
     , set
     , over
 
-    -- * Characteristic lenses (@_1@, @_2@) and traversals (@_Left@, @_Right@ etc.)
+    -- * @LensLike@ and important strength-expressing synonyms, from the all-powerful @Lens@ downward
+    , LensLike 
+    , Lens 
+    , Traversal 
+    , Setter 
+    , Getter 
+    , Fold
+    , FoldLike 
+    , SetterLike
+    
+    
+    -- * Simple Prelude lenses (@_1@, @_2@) and traversals (@_Left@, @_Right@, @_Just@, etc.)
     , _1
     , _2
     , _Left, _Right
     , _Just, _Nothing
     , both
     
-    
-    -- * Lens (etc.) formers
-    , lens
-    , iso
-    , setting
-    , to
-
-    -- * Basic state related combinators: @zoom@, @use@, @assign\/(.=)@ etc.
-    , zoom
-    , use, uses
-    , assign
-    
-    -- * Commonly used operators: particularly @view\/(^.)@,  @set\/(.~)@, @over\/(%~)@
+    -- * Common lens-applying operators: particularly @view\/(^.)@,  @set\/(.~)@, @over\/(%~)@
     , (^.)
     , (%~)
     , (.~)
@@ -34,6 +34,21 @@ module Lens.Simple (
     , (^..)
     , (^?)
     
+    
+    -- * Lens forming support (see also the TH incantations below )
+    , lens
+    , iso
+    , to
+    , setting
+    
+
+    -- * Basic state related combinators: @zoom@, @use@, @assign\/(.=)@ etc.
+    , zoom
+    , zoom_
+    , use, uses
+    , assign
+    
+    
     -- * Convenient state-related operators 
     , (%=)
     , (.=)
@@ -42,13 +57,9 @@ module Lens.Simple (
     
     -- * Pseudo-imperatives
     , (+~), (*~), (-~), (//~), (&&~), (||~), (<>~)
-    
 
-     -- * Corresponding state-related imperatives
+    -- * Corresponding state-related imperatives
     , (+=), (-=), (*=), (//=), (&&=), (||=), (<>=)
-    
-    -- * Stock semantic editor combinators (setters)
-    , mapped
     
     -- * More stock lenses 
     , chosen
@@ -58,7 +69,9 @@ module Lens.Simple (
     
     -- * More stock traversals 
     , ignored
-
+    
+    -- * More stock setters
+    , mapped
 
     -- * Other combinators
     , folding, views
@@ -75,19 +88,24 @@ module Lens.Simple (
     , makeLensesBy
     , makeLensesFor
     
-    -- * Types
-    , Lens, Lens'
-    , Traversal, Traversal'
-    , Getter, Getter'
-    , Setter, Setter'
-    , LensLike, LensLike'
-    , FoldLike, FoldLike'
-    , Phantom
-    , Constant (..), Identity (..)
+    -- * Other type synonyms
+    , LensLike'
+    , Lens'
+    , Traversal'
+    , Getter'
+    , Setter'
+    , FoldLike'
+    
+    -- * Helper classes
+    , Identical(..)
+    , Phantom(..)
+    
+    -- * Helper types
     , AlongsideLeft, AlongsideRight
     , Zooming 
     
     -- * Re-exports
+    , Constant (..), Identity (..)
     , Monoid(..),(<>)
   ) where
 import Lens.Family2.Unchecked
@@ -97,6 +115,8 @@ import Lens.Family2.TH (makeLenses, makeTraversals, makeLensesBy, makeLensesFor)
 import Data.Monoid
 import Data.Functor.Identity
 import Data.Functor.Constant
+import Control.Monad.Trans.State.Strict (StateT(..))
+import Control.Monad.State.Strict
 #if MIN_VERSION_base(4,8,0)
 import Data.Function ((&))
 import Lens.Family2 hiding ((&))
@@ -113,6 +133,21 @@ infixl 1 ??
 (??) :: Functor f => f (a -> b) -> a -> f b
 ff ?? a = fmap ($ a) ff
 {-# INLINE (??) #-}
---
+
+type SetterLike a a' b b' = LensLike Identity a a' b b'
+
 (?~) :: Setter a a' b (Maybe b') -> b' -> a -> a'
 l ?~ b = set l (Just b)
+
+-- | @zoom_@ is like @zoom@ but for convenience returns an @mtl@ style
+-- abstracted @MonadState@ state, rather than a concrete @StateT@, recapturing
+-- a bit more of the abstractness of @Control.Lens.zoom@ 
+zoom_
+      :: MonadState s' m =>
+         LensLike' (Zooming m a) s' s -> StateT s m a -> m a
+zoom_ l f = abstract $ zoom l f  where
+  abstract st  = do 
+    s <- get 
+    (a,s') <- runStateT st s
+    put s'
+    return a

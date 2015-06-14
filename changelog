@@ -1,3 +1,8 @@
+0.1.0.6
+=======
+  
+* Added the (perhaps dubious) `zoom_`, generalizing `zoom` slightly to accord with certain a prioris.
+
 0.1.0.3
 =======
 

@@ -1,13 +1,20 @@
 {-#LANGUAGE CPP, RankNTypes #-}
 module Lens.Simple (
     
-    -- * Fundamental lens combinators: @view@, @set@ and @over@ \- also known as @(^.)@, @(.~)@ and @(%~)@
+    -- * The fundamental lens operations: @view@, @set@ and @over@ 
     view
     , set
     , over
 
+
+    -- * Stock lenses (@_1@, @_2@) and mere traversals (@_Left@, @_Right@, @_Just@, etc.) for simple Prelude types
+    , _1
+    , _2
+    , _Left, _Right
+    , _Just, _Nothing
+    , both
+    
     -- * @LensLike@ and important strength-expressing synonyms, from the all-powerful @Lens@ downward
-    , LensLike 
     , Lens 
     , Traversal 
     , Setter 
@@ -15,16 +22,16 @@ module Lens.Simple (
     , Fold
     , FoldLike 
     , SetterLike
+    , LensLike 
     
+    -- * Support for defining lenses and weaker \'optics\' (see also the TH incantations below )
+    , lens
+    , iso
+    , to
+    , setting
+    , folding
     
-    -- * Simple Prelude lenses (@_1@, @_2@) and traversals (@_Left@, @_Right@, @_Just@, etc.)
-    , _1
-    , _2
-    , _Left, _Right
-    , _Just, _Nothing
-    , both
-    
-    -- * Common lens-applying operators: particularly @view\/(^.)@,  @set\/(.~)@, @over\/(%~)@
+    -- * Operator equivalents for common lens-applying operators: particularly @(^.)@, @(.~)@ and @(%~)@ (i.e. @view@, @set@ and @over@)
     , (^.)
     , (%~)
     , (.~)
@@ -34,20 +41,11 @@ module Lens.Simple (
     , (^..)
     , (^?)
     
-    
-    -- * Lens forming support (see also the TH incantations below )
-    , lens
-    , iso
-    , to
-    , setting
-    
-
-    -- * Basic state related combinators: @zoom@, @use@, @assign\/(.=)@ etc.
+    -- * Basic state-related combinators: @zoom@, @use@, @assign\/(.=)@ etc.
     , zoom
     , zoom_
     , use, uses
     , assign
-    
     
     -- * Convenient state-related operators 
     , (%=)
@@ -74,7 +72,7 @@ module Lens.Simple (
     , mapped
 
     -- * Other combinators
-    , folding, views
+    , views
     , toListOf, allOf, anyOf, firstOf, lastOf, sumOf, productOf
     , lengthOf, nullOf
     , backwards
@@ -133,7 +131,7 @@ infixl 1 ??
 (??) :: Functor f => f (a -> b) -> a -> f b
 ff ?? a = fmap ($ a) ff
 {-# INLINE (??) #-}
-
+ 
 type SetterLike a a' b b' = LensLike Identity a a' b b'
 
 (?~) :: Setter a a' b (Maybe b') -> b' -> a -> a'

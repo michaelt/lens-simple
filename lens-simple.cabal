@@ -1,66 +1,60 @@
 name:                lens-simple
-version:             0.1.0.6
+version:             0.1.0.7
 synopsis:            simplified import of elementary lens-family combinators
 
 description:         This module, <http://hackage.haskell.org/package/lens-simple/docs/Lens-Simple.html Lens.Simple>, 
-                     just re-exports the main modules from Russell O\'Connor's 
-                     <http://hackage.haskell.org/package/lens-family lens-family> 
-                     package, the original <http://r6.ca/blog/20120623T104901Z.html van Laarhoven lens> library. 
+                     just re-exports the main modules from Russell O\'Connor's
+                     <http://hackage.haskell.org/package/lens-family lens-family> package.
+                     @lens-family@ is particularly remarkable for its minute number of dependencies:
+                     apart from <http://hackage.haskell.org/package/mtl mtl> 
+                     they are all ghc \'boot\' libraries.
                      @Lens.Simple@ also re-exports @makeLenses@ and 
-                     other TH incantations from Dan Burton's associated 
+                     other convenient TH incantations from Dan Burton's associated 
                      <http://hackage.haskell.org/package/lens-family-th lens-family-th>. 
-                     The idea is just to make a sort of low-powered, minimal-dependency @lens-family@ equivalent of 
+                     .
+                     The idea, then, is just to make a sort of low-powered, minimal-dependency, @lens-family@ equivalent of 
                      the 800 lb gorilla of lens library imports:
                      .
                      > import Control.Lens
                      .
-                     to wit, the elegant and spritely:
+                     namely, the light-weight and elegant:
                      .
                      > import Lens.Simple
                      .
-                     Check it out, it's even one character shorter! 
+                     Check it out, it's even one character shorter!
                      .
-                     If you are unfamiliar with the use of what O'Connor calls van Laarhoven 
-                     lenses, you might take a 
-                     look at the excellent <http://www.serpentine.com/wreq/tutorial.html tutorial> 
-                     for the <http://hackage.haskell.org/package/wreq wreq> 
-                     library. All of the tutorial material will compile if you replace 
-                     @import Control.Lens@ with the suave @import Lens.Simple@.
-                     The error messages you get might be a little less opaque. But
-                     the point is basically academic, of course: you have already weighed down your 
-                     sandbox with the @lens@ library by installing @wreq@ and if you get 
-                     any deeper into @wreq@ you will need it. 
-                     .
-                     As another illustration of the simplicity of the 
-                     fundamental van Laarhoven lens combinators, note that the gloss 
+                     As an illustration of the simplicity of the 
+                     fundamental van Laarhoven lens combinators - and their homogeneity with 
+                     @Control.Lens@ - note that the gloss
                      <https://github.com/michaelt/lens-family-simple/blob/master/examples/Pong.hs pong example> 
-                     from the @lens@ library examples directory requires only this 
-                     abbreviating change of imports. 
-                     If you care to make that program more complicated, 
-                     you might at some point need 
-                     the unfathomably more sophisticated material in @Control.Lens@. 
-                     Within its more limited sphere, @lens-family@ accords as 
+                     from the @lens@ library examples directory - which continues to be
+                     the best introductory lens tutorial precisely by saying nothing -
+                     requires /only/ this abbreviating change of imports. 
+                     If you make that program more complicated, 
+                     you might of course end up needing
+                     the more sophisticated material in @Control.Lens@ and 
+                     its immense mass of dependencies.
+                     Within its more limited sphere, though, @lens-family@ accords as 
                      far as possible with @lens@, so this switch 
-                     will often be all that is necessary to begin using them.
+                     will often be all that is necessary to begin using them. 
                      .
                      This module was originally intended to simplify the use of packages that 
-                     follow the original promise of the van Laarhoven lenses. Correct practice is
-                     to export lenses without depending on a lens-library, where possible; 
-                     in basic cases these use just familiar @Prelude@ types. 
-                     Examples of best practices in this respect are
+                     follow the original promise of the van Laarhoven lenses. 
+                     /Correct practice is to export lenses without depending on a lens-library, where possible./
+                     In basic cases these just use familiar @Prelude@ types, after all. 
+                     Examples of best practices in this respect are e.g. <http://hackage.haskell.org/package/lens-family-th lens-family-th> which
+                     doesn't depend on @lens-family@ despite its name and pipes-related packages like
                      <http://hackage.haskell.org/package/pipes-bytestring pipes-bytestring> 
                      and <http://hackage.haskell.org/package/pipes-group pipes-group>. 
-                     Because of the heavily monadic character of those libraries, the 
+                     Because of the heavily monadic character of the latter libraries, the 
                      extra material in @Control.Lens@ is rarely of use anyway; one sticks largely
-                     to @view\/(^.)@, @set\/(.~)@, @over\/(%~)@ and @zoom@.
+                     to @view@, @set@, @over@ and, for state operations, @zoom@.
                      .
-                     Note that many of the other lenses and combinators are a bit more 
+                     Note that lenses and other combinators are here frequently a bit more 
                      specialized than their @Control.Lens@ equivalents: 
                      for example, _1 and _2 are here 
                      familiarly specialized to act just on real Haskell
-                     pairs. With the loss of abstraction we also of course
-                     lose the concomitant opaque error messages 
-                     about @Field1 s t a b@ etc.
+                     pairs. 
 
 homepage:            https://github.com/michaelt/lens-simple
 license:             BSD3
@@ -75,7 +69,7 @@ cabal-version:       >=1.10
 source-repository head
   type:     git
   location: https://github.com/michaelt/lens-simple    
-    
+
 library
   exposed-modules:     Lens.Simple
   build-depends:       base == 4.* 

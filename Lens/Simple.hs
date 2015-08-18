@@ -43,7 +43,6 @@ module Lens.Simple (
     
     -- * Basic state-related combinators: @zoom@, @use@, @assign\/(.=)@ etc.
     , zoom
-    , zoom_
     , use, uses
     , assign
     
@@ -93,6 +92,8 @@ module Lens.Simple (
     , Getter'
     , Setter'
     , FoldLike'
+    , ASetter'
+    , ASetter
     
     -- * Helper classes
     , Identical(..)
@@ -109,6 +110,7 @@ module Lens.Simple (
 import Lens.Family2.Unchecked
 import Lens.Family2.Stock
 import Lens.Family2.State.Strict
+import Lens.Family (ASetter, ASetter', over)
 import Lens.Family2.TH (makeLenses, makeTraversals, makeLensesBy, makeLensesFor)
 import Data.Monoid
 import Data.Functor.Identity
@@ -117,9 +119,9 @@ import Control.Monad.Trans.State.Strict (StateT(..))
 import Control.Monad.State.Strict
 #if MIN_VERSION_base(4,8,0)
 import Data.Function ((&))
-import Lens.Family2 hiding ((&))
+import Lens.Family2 hiding ((&), over)
 #else
-import Lens.Family2 
+import Lens.Family2 hiding (over)
 #endif
 
 infixl 1 ??
@@ -136,16 +138,3 @@ type SetterLike a a' b b' = LensLike Identity a a' b b'
 
 (?~) :: Setter a a' b (Maybe b') -> b' -> a -> a'
 l ?~ b = set l (Just b)
-
--- | @zoom_@ is like @zoom@ but for convenience returns an @mtl@ style
--- abstracted @MonadState@ state, rather than a concrete @StateT@, recapturing
--- a bit more of the abstractness of @Control.Lens.zoom@ 
-zoom_
-      :: MonadState s' m =>
-         LensLike' (Zooming m a) s' s -> StateT s m a -> m a
-zoom_ l f = abstract $ zoom l f  where
-  abstract st  = do 
-    s <- get 
-    (a,s') <- runStateT st s
-    put s'
-    return a

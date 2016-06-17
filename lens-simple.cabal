@@ -1,5 +1,5 @@
 name:                lens-simple
-version:             0.1.0.8
+version:             0.1.0.9
 synopsis:            simplified import of elementary lens-family combinators
 
 description:         This module, <http://hackage.haskell.org/package/lens-simple/docs/Lens-Simple.html Lens.Simple>, 
@@ -83,7 +83,7 @@ source-repository head
 library
   exposed-modules:     Lens.Simple
   build-depends:       base == 4.* 
-                       , transformers >= 0.2.0 && < 5
+                       , transformers >= 0.2.0 && < 6
                        , mtl >=2.1 && <2.3
                        , lens-family == 1.2.*
                        , lens-family-core == 1.2.*

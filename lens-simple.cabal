@@ -61,8 +61,8 @@ description:         This module, <http://hackage.haskell.org/package/lens-simpl
                      <http://hackage.haskell.org/package/pipes-bytestring pipes-bytestring> 
                      and <http://hackage.haskell.org/package/pipes-group pipes-group>. 
                      .
-                     @Lens.Simple@ also re-exports @makeLenses@ and 
-                     other convenient TH incantations from Dan Burton's associated 
+                     @Lens.Simple@ also re-exports convenient TH incantations like 
+                     @makeLenses@ from Dan Burton's associated 
                      <http://hackage.haskell.org/package/lens-family-th lens-family-th>. 
                      .
                      

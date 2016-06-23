@@ -153,7 +153,7 @@ checkBounds = do
     -- Check for collisions with paddles
   let check paddle (other :: Lens_ (Int,Int) Int)
         | y >= p^.paddle - paddleHeight/2 && y <= p^.paddle + paddleHeight/2 = do
-            ballSpeed._x   %= negate 
+            ballSpeed._x   %= negate
             ballSpeed._y   += 3*(y - p^.paddle) -- add english
             ballSpeed.both *= speedIncrease
         | otherwise = do

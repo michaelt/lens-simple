@@ -151,7 +151,9 @@ checkBounds = do
     ballSpeed._y %= negate
 
     -- Check for collisions with paddles
-  let check paddle (other :: Lens_ (Int,Int) Int)
+    -- note lens family requires this signature
+  let check :: Lens' Pong Float -> Lens' (Int,Int) Int -> State Pong ()
+      check paddle other 
         | y >= p^.paddle - paddleHeight/2 && y <= p^.paddle + paddleHeight/2 = do
             ballSpeed._x   %= negate
             ballSpeed._y   += 3*(y - p^.paddle) -- add english
@@ -159,12 +161,32 @@ checkBounds = do
         | otherwise = do
            score.other += 1
            reset
-
   when (x >=  edge) $ check paddle2 _1
   when (x <= -edge) $ check paddle1 _2
 
   where
     edge = 1 - ballRadius
+
+check1 :: Pong ->  Float -> Lens' Pong Float -> Lens' (Int,Int) Int -> State Pong ()
+check1 p y = \paddle other ->  
+      if y >= p^.paddle - paddleHeight/2 && y <= p^.paddle + paddleHeight/2 
+         then do
+            ballSpeed._x   %= negate
+            ballSpeed._y   += 3*(y - p^.paddle) -- add english
+            ballSpeed.both *= speedIncrease
+         else do
+           score.other += 1 :: State Pong ()
+           reset
+--
+check2 p x y 
+        | y >= p^.paddle2 - paddleHeight/2 && y <= p^.paddle2 + paddleHeight/2 = do
+            ballSpeed._x   %= negate
+            ballSpeed._y   += 3*(y - p^.paddle2) -- add english
+            ballSpeed.both *= speedIncrease
+        | otherwise = do
+           score._2 += 1 :: State Pong ()
+           reset
+           
 
 -- Reset the game
 reset :: State Pong ()

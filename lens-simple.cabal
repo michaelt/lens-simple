@@ -29,10 +29,10 @@ description:         This module, <http://hackage.haskell.org/package/lens-simpl
                      .
                      Check it out, it's even one character shorter!
                      .
-                     The material in <http://hackage.haskell.org/package/lens-tutorial lens-tutorial>
-                     will work fine if you swap imports in this familiar elementary
-                     <http://hackage.haskell.org/package/lens-tutorial-1.0.0/docs/src/Control-Lens-Tutorial.html tutorial>
-                     and follow along as prompted.
+                     The material in this familar <http://hackage.haskell.org/package/lens-tutorial elementary lens tutorial>
+                     will work fine if you swap imports in the
+                     <http://hackage.haskell.org/package/lens-tutorial-1.0.0/docs/src/Control-Lens-Tutorial.html source>
+                     and follow along in ghci as prompted.
                      .
                      As another illustration of the simplicity of the 
                      fundamental van Laarhoven-O'Connor lens combinators - and their homogeneity with 
